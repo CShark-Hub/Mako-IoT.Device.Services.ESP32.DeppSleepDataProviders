@@ -31,19 +31,12 @@ Global
 		{F1D17AAA-F553-45BC-8646-CB11E33C6B96}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1D17AAA-F553-45BC-8646-CB11E33C6B96}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F1D17AAA-F553-45BC-8646-CB11E33C6B96}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{2906AA16-9330-4EFE-9C88-8474CE9749D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2906AA16-9330-4EFE-9C88-8474CE9749D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2906AA16-9330-4EFE-9C88-8474CE9749D7}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{2906AA16-9330-4EFE-9C88-8474CE9749D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2906AA16-9330-4EFE-9C88-8474CE9749D7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2906AA16-9330-4EFE-9C88-8474CE9749D7}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F1D17AAA-F553-45BC-8646-CB11E33C6B96} = {BC16465B-D3DB-4371-8D24-56163DE0F288}
-		{2906AA16-9330-4EFE-9C88-8474CE9749D7} = {A1D0E3C5-D9E6-4EC8-BA95-DFC69E5EA941}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4E967760-12B5-4261-9935-A04AD73A6476}

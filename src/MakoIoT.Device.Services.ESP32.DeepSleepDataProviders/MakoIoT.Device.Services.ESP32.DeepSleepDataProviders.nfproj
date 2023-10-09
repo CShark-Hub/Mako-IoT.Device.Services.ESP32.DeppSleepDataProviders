@@ -12,8 +12,8 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <FileAlignment>512</FileAlignment>
-    <RootNamespace>MakoIoT.Device.Services.ESP32.DeppSleepDataProviders</RootNamespace>
-    <AssemblyName>MakoIoT.Device.Services.ESP32.DeppSleepDataProviders</AssemblyName>
+    <RootNamespace>MakoIoT.Device.Services.ESP32.DeepSleepDataProviders</RootNamespace>
+    <AssemblyName>MakoIoT.Device.Services.ESP32.DeepSleepDataProviders</AssemblyName>
     <TargetFrameworkVersion>v1.0</TargetFrameworkVersion>
   </PropertyGroup>
   <Import Project="$(NanoFrameworkProjectSystemPath)NFProjectSystem.props" Condition="Exists('$(NanoFrameworkProjectSystemPath)NFProjectSystem.props')" />

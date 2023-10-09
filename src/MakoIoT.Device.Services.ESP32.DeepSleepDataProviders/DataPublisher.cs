@@ -6,7 +6,7 @@ using System;
 using System.Device.Gpio;
 using nanoFramework.Runtime.Native;
 
-namespace MakoIoT.Device.Services.ESP32.DeppSleepDataProviders
+namespace MakoIoT.Device.Services.ESP32.DeepSleepDataProviders
 {
     public class DataPublisher
     {

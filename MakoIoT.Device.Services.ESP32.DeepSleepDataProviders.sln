@@ -12,12 +12,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		azure-pipelines.yml = azure-pipelines.yml
 		Directory.Build.props = Directory.Build.props
 		LICENSE.md = LICENSE.md
-		MakoIoT.Device.Services.ESP32.DeppSleepDataProviders.nuspec = MakoIoT.Device.Services.ESP32.DeppSleepDataProviders.nuspec
+		MakoIoT.Device.Services.ESP32.DeepSleepDataProviders.nuspec = MakoIoT.Device.Services.ESP32.DeepSleepDataProviders.nuspec
 		README.md = README.md
 		version.json = version.json
 	EndProjectSection
 EndProject
-Project("{11A8DD76-328B-46DF-9F39-F559912D0360}") = "MakoIoT.Device.Services.ESP32.DeppSleepDataProviders", "src\MakoIoT.Device.Services.ESP32.DeppSleepDataProviders\MakoIoT.Device.Services.ESP32.DeppSleepDataProviders.nfproj", "{F1D17AAA-F553-45BC-8646-CB11E33C6B96}"
+Project("{11A8DD76-328B-46DF-9F39-F559912D0360}") = "MakoIoT.Device.Services.ESP32.DeepSleepDataProviders", "src\MakoIoT.Device.Services.ESP32.DeepSleepDataProviders\MakoIoT.Device.Services.ESP32.DeepSleepDataProviders.nfproj", "{F1D17AAA-F553-45BC-8646-CB11E33C6B96}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

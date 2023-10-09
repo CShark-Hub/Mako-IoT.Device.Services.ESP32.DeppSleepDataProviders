@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
-    <id>MakoIoT.Device.Services.ESP32.DeppSleepDataProviders</id>
+    <id>MakoIoT.Device.Services.ESP32.DeepSleepDataProviders</id>
     <version>$version$</version>
-    <title>MakoIoT.Device.Services.ESP32.DeppSleepDataProviders</title>
+    <title>MakoIoT.Device.Services.ESP32.DeepSleepDataProviders</title>
     <authors>CSHARK</authors>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <license type="file">LICENSE.md</license>
@@ -29,10 +29,10 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="src\MakoIoT.Device.Services.ESP32.DeppSleepDataProviders\bin\Release\MakoIoT.Device.Services.ESP32.DeppSleepDataProviders.dll" target="lib\MakoIoT.Device.Services.ESP32.DeppSleepDataProviders.dll" />
-    <file src="src\MakoIoT.Device.Services.ESP32.DeppSleepDataProviders\bin\Release\MakoIoT.Device.Services.ESP32.DeppSleepDataProviders.pdb" target="lib\MakoIoT.Device.Services.ESP32.DeppSleepDataProviders.pdb" />
-    <file src="src\MakoIoT.Device.Services.ESP32.DeppSleepDataProviders\bin\Release\MakoIoT.Device.Services.ESP32.DeppSleepDataProviders.pdbx" target="lib\MakoIoT.Device.Services.ESP32.DeppSleepDataProviders.pdbx" />
-    <file src="src\MakoIoT.Device.Services.ESP32.DeppSleepDataProviders\bin\Release\MakoIoT.Device.Services.ESP32.DeppSleepDataProviders.pe" target="lib\MakoIoT.Device.Services.ESP32.DeppSleepDataProviders.pe" />
+    <file src="src\MakoIoT.Device.Services.ESP32.DeepSleepDataProviders\bin\Release\MakoIoT.Device.Services.ESP32.DeepSleepDataProviders.dll" target="lib\MakoIoT.Device.Services.ESP32.DeepSleepDataProviders.dll" />
+    <file src="src\MakoIoT.Device.Services.ESP32.DeepSleepDataProviders\bin\Release\MakoIoT.Device.Services.ESP32.DeepSleepDataProviders.pdb" target="lib\MakoIoT.Device.Services.ESP32.DeepSleepDataProviders.pdb" />
+    <file src="src\MakoIoT.Device.Services.ESP32.DeepSleepDataProviders\bin\Release\MakoIoT.Device.Services.ESP32.DeepSleepDataProviders.pdbx" target="lib\MakoIoT.Device.Services.ESP32.DeepSleepDataProviders.pdbx" />
+    <file src="src\MakoIoT.Device.Services.ESP32.DeepSleepDataProviders\bin\Release\MakoIoT.Device.Services.ESP32.DeepSleepDataProviders.pe" target="lib\MakoIoT.Device.Services.ESP32.DeepSleepDataProviders.pe" />
     <file src="README.md" target="docs\" />
     <file src="LICENSE.md" target="" />
   </files>

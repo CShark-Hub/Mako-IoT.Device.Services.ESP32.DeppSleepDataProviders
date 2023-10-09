@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MakoIoT.Device.Services.ESP32.DeppSleepDataProviders
+namespace MakoIoT.Device.Services.ESP32.DeepSleepDataProviders
 {
     public sealed class DeepSleepDataProviderConfig
     {

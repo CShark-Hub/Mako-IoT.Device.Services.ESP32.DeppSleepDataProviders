@@ -1,7 +1,7 @@
 ﻿using MakoIoT.Device.Services.Interface;
 using nanoFramework.DependencyInjection;
 
-namespace MakoIoT.Device.Services.ESP32.DeppSleepDataProviders.Extensions
+namespace MakoIoT.Device.Services.ESP32.DeepSleepDataProviders.Extensions
 {
 
     public static class DeviceBuilderExtension

@@ -18,9 +18,9 @@ pool:
 variables:
 - group: mako-iot-github
 - name: runSettingsFile
-  value: 'Tests\MakoIoT.Device.Services.ESP32.DeppSleepDataProviders.Test\nano.runsettings'
+  value: 'Tests\MakoIoT.Device.Services.ESP32.DeepSleepDataProviders.Test\nano.runsettings'
 - name: packageName
-  value: 'MakoIoT.Device.Services.ESP32.DeppSleepDataProviders'
+  value: 'MakoIoT.Device.Services.ESP32.DeepSleepDataProviders'
 
 resources:
   repositories:

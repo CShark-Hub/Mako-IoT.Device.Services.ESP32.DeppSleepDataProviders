@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>MakoIoT.Device.Services.ESP32.DeppSleepDataProviders</id>
+    <version>$version$</version>
+    <title>MakoIoT.Device.Services.ESP32.DeppSleepDataProviders</title>
+    <authors>CSHARK</authors>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <license type="file">LICENSE.md</license>
+    <releaseNotes>
+    </releaseNotes>
+    <readme>docs\README.md</readme>
+    <developmentDependency>false</developmentDependency>
+    <projectUrl>https://github.com/CShark-Hub/Mako-IoT.Device.Services.ConfigurationApi</projectUrl>
+    <repository type="git" url="https://github.com/CShark-Hub/Mako-IoT.Device.Services.ConfigurationApi" />
+    <copyright>Copyright (c) CSHARK Sp. z o. o.</copyright>
+    <description>ESP32 DeepSleep data provider for MAKO-IoT</description>
+    <tags>nanoFramework C# csharp netmf netnf deepsleep mako-iot ESP32</tags>
+    <dependencies>
+      <dependency id="MakoIoT.Device.Services.Interface" version="1.0.34.44535" />
+      <dependency id="nanoFramework.CoreLibrary" version="1.14.2" />
+      <dependency id="nanoFramework.DependencyInjection" version="1.0.22" />
+      <dependency id="nanoFramework.Hardware.Esp32" version="1.6.8" />
+      <dependency id="nanoFramework.Logging" version="1.1.63" />
+      <dependency id="nanoFramework.Runtime.Events" version="1.11.6" />
+      <dependency id="nanoFramework.Runtime.Native" version="1.6.6" />
+      <dependency id="nanoFramework.System.Collections" version="1.5.18" />
+      <dependency id="nanoFramework.Device.Gpio" version="1.1.28" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="src\MakoIoT.Device.Services.ESP32.DeppSleepDataProviders\bin\Release\MakoIoT.Device.Services.ESP32.DeppSleepDataProviders.dll" target="lib\MakoIoT.Device.Services.ESP32.DeppSleepDataProviders.dll" />
+    <file src="src\MakoIoT.Device.Services.ESP32.DeppSleepDataProviders\bin\Release\MakoIoT.Device.Services.ESP32.DeppSleepDataProviders.pdb" target="lib\MakoIoT.Device.Services.ESP32.DeppSleepDataProviders.pdb" />
+    <file src="src\MakoIoT.Device.Services.ESP32.DeppSleepDataProviders\bin\Release\MakoIoT.Device.Services.ESP32.DeppSleepDataProviders.pdbx" target="lib\MakoIoT.Device.Services.ESP32.DeppSleepDataProviders.pdbx" />
+    <file src="src\MakoIoT.Device.Services.ESP32.DeppSleepDataProviders\bin\Release\MakoIoT.Device.Services.ESP32.DeppSleepDataProviders.pe" target="lib\MakoIoT.Device.Services.ESP32.DeppSleepDataProviders.pe" />
+    <file src="README.md" target="docs\" />
+    <file src="LICENSE.md" target="" />
+  </files>
+</package>

@@ -1,10 +1,10 @@
 ﻿using MakoIoT.Device.Services.Interface;
 using Microsoft.Extensions.Logging;
-using nanoFramework.DependencyInjection;
 using nanoFramework.Hardware.Esp32;
 using System;
 using System.Device.Gpio;
 using nanoFramework.Runtime.Native;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace MakoIoT.Device.Services.ESP32.DeepSleepDataProviders
 {

@@ -1,5 +1,4 @@
 ﻿using MakoIoT.Device.Services.Interface;
-using Microsoft.Extensions.Logging;
 using nanoFramework.Hardware.Esp32;
 using System;
 using System.Device.Gpio;
@@ -16,10 +15,10 @@ namespace MakoIoT.Device.Services.ESP32.DeepSleepDataProviders
         private readonly IServiceProvider _serviceProvider;
         private readonly INetworkProvider _networkProvider;
         private readonly GpioPin _deepSleepDisablePin;
-        private readonly ILogger _logger;
+        private readonly ILog _logger;
         private readonly DeepSleepDataProviderConfig _config;
 
-        public DataPublisher(IMessageBus messageBus, IServiceProvider serviceCollection, ILogger logger,
+        public DataPublisher(IMessageBus messageBus, IServiceProvider serviceCollection, ILog logger,
             IConfigurationService configService, INetworkProvider networkProvider, GpioController gpioController)
         {
             _messageBus = messageBus;
@@ -37,7 +36,7 @@ namespace MakoIoT.Device.Services.ESP32.DeepSleepDataProviders
 
         private void ProviderOnDataReceived(object sender, MessageEventArgs e)
         {
-            _logger.LogDebug($"Message {e.Message.MessageType} received from data provider");
+            _logger.Trace($"Message {e.Message.MessageType} received from data provider");
             _messageBus.Publish(e.Message);
         }
 
@@ -48,18 +47,18 @@ namespace MakoIoT.Device.Services.ESP32.DeepSleepDataProviders
                 var wakeupCause = Sleep.GetWakeupCause();
                 if (wakeupCause != Sleep.WakeupCause.Undefined)
                 {
-                    _logger.LogInformation($"Wake up cause: {wakeupCause}");
+                    _logger.Information($"Wake up cause: {wakeupCause}");
                 }
 
                 DoWork(device);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error.");
+                _logger.Error("Error.", ex);
             }
             finally
             {
-                _logger.LogDebug($"Stoping device and going to sleep for {_config.SleepTime}");
+                _logger.Information($"Stoping device and going to sleep for {_config.SleepTime}");
                 Sleep.EnableWakeupByTimer(_config.SleepTime);
                 Sleep.StartDeepSleep();
             }
@@ -97,7 +96,7 @@ namespace MakoIoT.Device.Services.ESP32.DeepSleepDataProviders
             {
                 if (!_networkProvider.IsConnected)
                 {
-                    _logger.LogError("Network is not connected. Restarting device.");
+                    _logger.Error("Network is not connected. Restarting device.");
                     Power.RebootDevice();
                     return;
                 }
@@ -105,25 +104,24 @@ namespace MakoIoT.Device.Services.ESP32.DeepSleepDataProviders
                 var providers = _serviceProvider.GetServices(typeof(IDataProvider));
                 foreach (IDataProvider dataProvider in providers)
                 {
-                    _logger.LogDebug($"Initializing {dataProvider.Id} data provider.");
+                    _logger.Trace($"Initializing {dataProvider.Id} data provider.");
                     HandleDataProvider(dataProvider);
                 }
 
                 if (ShouldNotGoIntoDeepSleep())
                 {
-                    _logger.LogInformation($"Deep sleep is disabled due to pin state.");
+                    _logger.Information($"Deep sleep is disabled due to pin state.");
                     return;
                 }
 
-                _logger.LogDebug("Stoping device");
+                _logger.Trace("Stoping device");
                 device.Stop();
-                _logger.LogDebug("Device stopped");
             }
             catch (Exception ex)
             {
                 if (attempt <= MaxRetryAttepmpts)
                 {
-                    _logger.LogWarning(ex, "Error when processing. Executing retry.");
+                    _logger.Warning(ex, "Error when processing. Executing retry.");
                     DoWork(device, ++attempt);
                     return;
                 }
@@ -141,7 +139,7 @@ namespace MakoIoT.Device.Services.ESP32.DeepSleepDataProviders
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Error when calling {provider.GetType().FullName}");
+                _logger.Error($"Error when calling {provider.GetType().FullName}", ex);
             }
             finally
             {

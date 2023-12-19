@@ -7,6 +7,5 @@ namespace MakoIoT.Device.Services.ESP32.DeepSleepDataProviders
         public static string SectionName => "DeepSleepDataProvider";
 
         public TimeSpan SleepTime { get; set; }
-        public byte DisableDeepSleepGpioPin { get; set; }
     }
 }

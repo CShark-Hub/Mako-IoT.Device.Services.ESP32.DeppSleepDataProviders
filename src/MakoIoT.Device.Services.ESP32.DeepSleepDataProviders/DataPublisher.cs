@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace MakoIoT.Device.Services.ESP32.DeepSleepDataProviders
 {
-    public class DataPublisher
+    public sealed class DataPublisher
     {
         private const byte MaxRetryAttepmpts = 3;
 
@@ -19,18 +19,18 @@ namespace MakoIoT.Device.Services.ESP32.DeepSleepDataProviders
         private readonly DeepSleepDataProviderConfig _config;
 
         public DataPublisher(IMessageBus messageBus, IServiceProvider serviceCollection, ILog logger,
-            IConfigurationService configService, INetworkProvider networkProvider, GpioController gpioController)
+            IConfigurationService configService, INetworkProvider networkProvider, GpioController gpioController, DeepSleepDataProviderConfiguration configuration)
         {
             _messageBus = messageBus;
             _serviceProvider = serviceCollection;
             _logger = logger;
             _config = (DeepSleepDataProviderConfig)configService.GetConfigSection(DeepSleepDataProviderConfig.SectionName, typeof(DeepSleepDataProviderConfig));
             _networkProvider = networkProvider;
-            if (_config.DisableDeepSleepGpioPin != 0)
+            if (configuration.DisableDeepSleepGpioPin != 0)
             {
                 // Will throw exception for invalid pin number
-                var _ = MapPinNumberToWakeUpEnum(_config.DisableDeepSleepGpioPin);
-                _deepSleepDisablePin = gpioController.OpenPin(_config.DisableDeepSleepGpioPin);
+                var _ = MapPinNumberToWakeUpEnum(configuration.DisableDeepSleepGpioPin);
+                _deepSleepDisablePin = gpioController.OpenPin(configuration.DisableDeepSleepGpioPin);
             }
         }
 
@@ -64,7 +64,7 @@ namespace MakoIoT.Device.Services.ESP32.DeepSleepDataProviders
             }
         }
 
-        private static Sleep.WakeupGpioPin MapPinNumberToWakeUpEnum(byte pinNumber)
+        private static Sleep.WakeupGpioPin MapPinNumberToWakeUpEnum(short pinNumber)
         {
             return pinNumber switch
             {

@@ -19,6 +19,7 @@
   <Import Project="$(NanoFrameworkProjectSystemPath)NFProjectSystem.props" Condition="Exists('$(NanoFrameworkProjectSystemPath)NFProjectSystem.props')" />
   <ItemGroup>
     <Compile Include="DataPublisher.cs" />
+    <Compile Include="DeepSleepDataProviderConfiguration.cs" />
     <Compile Include="DeepSleepDataProviderConfig.cs" />
     <Compile Include="Extensions\DeviceBuilderExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

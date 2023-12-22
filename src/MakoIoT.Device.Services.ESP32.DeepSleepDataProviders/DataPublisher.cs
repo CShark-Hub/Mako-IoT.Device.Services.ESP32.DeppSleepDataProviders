@@ -2,35 +2,30 @@
 using nanoFramework.Hardware.Esp32;
 using System;
 using System.Device.Gpio;
-using nanoFramework.Runtime.Native;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace MakoIoT.Device.Services.ESP32.DeepSleepDataProviders
 {
     public sealed class DataPublisher
     {
-        private const byte MaxRetryAttepmpts = 3;
+        private const byte MaxRetryAttempts = 3;
 
         private readonly IMessageBus _messageBus;
-        private readonly IServiceProvider _serviceProvider;
-        private readonly INetworkProvider _networkProvider;
-        private readonly GpioPin _deepSleepDisablePin;
+        private readonly GpioPin _wakeupGpio;
+        private readonly Sleep.WakeupGpioPin _wakeupGpioPin;
         private readonly ILog _logger;
         private readonly DeepSleepDataProviderConfig _config;
 
-        public DataPublisher(IMessageBus messageBus, IServiceProvider serviceCollection, ILog logger,
-            IConfigurationService configService, INetworkProvider networkProvider, GpioController gpioController, DeepSleepDataProviderConfiguration configuration)
+        public DataPublisher(IMessageBus messageBus, ILog logger,
+            IConfigurationService configService, GpioController gpioController, DeepSleepDataProviderConfiguration configuration)
         {
             _messageBus = messageBus;
-            _serviceProvider = serviceCollection;
             _logger = logger;
             _config = (DeepSleepDataProviderConfig)configService.GetConfigSection(DeepSleepDataProviderConfig.SectionName, typeof(DeepSleepDataProviderConfig));
-            _networkProvider = networkProvider;
-            if (configuration.DisableDeepSleepGpioPin != 0)
+            if (configuration.WakeUpGpioPin != DeepSleepDataProviderConfiguration.WakeUpDisabled)
             {
-                // Will throw exception for invalid pin number
-                var _ = MapPinNumberToWakeUpEnum(configuration.DisableDeepSleepGpioPin);
-                _deepSleepDisablePin = gpioController.OpenPin(configuration.DisableDeepSleepGpioPin);
+                _wakeupGpioPin = MapPinNumberToWakeUpEnum(configuration.WakeUpGpioPin);
+                _wakeupGpio = gpioController.OpenPin(configuration.WakeUpGpioPin);
             }
         }
 
@@ -54,13 +49,20 @@ namespace MakoIoT.Device.Services.ESP32.DeepSleepDataProviders
             }
             catch (Exception ex)
             {
-                _logger.Error("Error.", ex);
+                _logger.Error(ex);
             }
             finally
             {
-                _logger.Information($"Stoping device and going to sleep for {_config.SleepTime}");
-                Sleep.EnableWakeupByTimer(_config.SleepTime);
-                Sleep.StartDeepSleep();
+                if (ShouldGoIntoDeepSleep())
+                {
+                    _logger.Information($"Stopping device and going to sleep for {_config.SleepTime}");
+                    device.Stop();
+                    Sleep.EnableWakeupByTimer(_config.SleepTime);
+                    Sleep.EnableWakeupByMultiPins(_wakeupGpioPin, Sleep.WakeupMode.AnyHigh);
+                    Sleep.StartDeepSleep();
+                }
+
+                _logger.Information($"Deep sleep is disabled due to pin state.");
             }
         }
 
@@ -94,32 +96,16 @@ namespace MakoIoT.Device.Services.ESP32.DeepSleepDataProviders
         {
             try
             {
-                if (!_networkProvider.IsConnected)
-                {
-                    _logger.Error("Network is not connected. Restarting device.");
-                    Power.RebootDevice();
-                    return;
-                }
-
-                var providers = _serviceProvider.GetServices(typeof(IDataProvider));
+                var providers = device.ServiceProvider.GetServices(typeof(IDataProvider));
                 foreach (IDataProvider dataProvider in providers)
                 {
                     _logger.Trace($"Initializing {dataProvider.Id} data provider.");
                     HandleDataProvider(dataProvider);
                 }
-
-                if (ShouldNotGoIntoDeepSleep())
-                {
-                    _logger.Information($"Deep sleep is disabled due to pin state.");
-                    return;
-                }
-
-                _logger.Trace("Stoping device");
-                device.Stop();
             }
             catch (Exception ex)
             {
-                if (attempt <= MaxRetryAttepmpts)
+                if (attempt <= MaxRetryAttempts)
                 {
                     _logger.Warning(ex, "Error when processing. Executing retry.");
                     DoWork(device, ++attempt);
@@ -147,19 +133,19 @@ namespace MakoIoT.Device.Services.ESP32.DeepSleepDataProviders
             }
         }
 
-        private bool ShouldNotGoIntoDeepSleep()
+        private bool ShouldGoIntoDeepSleep()
         {
-            if (_deepSleepDisablePin == null)
-            {
-                return false;
-            }
-
-            if (_deepSleepDisablePin.Read() == PinValue.High)
+            if (_wakeupGpio == null)
             {
                 return true;
             }
 
-            return false;
+            if (_wakeupGpio.Read() == PinValue.High)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

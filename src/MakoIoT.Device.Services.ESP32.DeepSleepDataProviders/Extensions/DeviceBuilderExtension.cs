@@ -6,10 +6,10 @@ namespace MakoIoT.Device.Services.ESP32.DeepSleepDataProviders.Extensions
 
     public static class DeviceBuilderExtension
     {
-        public static IDeviceBuilder AddDeepSleepDataProviders(this IDeviceBuilder builder, short deepSleepDisableGpioPinNumber = -1)
+        public static IDeviceBuilder AddDeepSleepDataProviders(this IDeviceBuilder builder, short deepSleepDisableGpioPinNumber = DeepSleepDataProviderConfiguration.WakeUpDisabled)
         {
             builder.DeviceStarting += Builder_DeviceStarting;
-            builder.Services.AddSingleton(typeof(DeepSleepDataProviderConfiguration), new DeepSleepDataProviderConfiguration() { DisableDeepSleepGpioPin = deepSleepDisableGpioPinNumber });
+            builder.Services.AddSingleton(typeof(DeepSleepDataProviderConfiguration), new DeepSleepDataProviderConfiguration() { WakeUpGpioPin = deepSleepDisableGpioPinNumber });
             return builder;
         }
 

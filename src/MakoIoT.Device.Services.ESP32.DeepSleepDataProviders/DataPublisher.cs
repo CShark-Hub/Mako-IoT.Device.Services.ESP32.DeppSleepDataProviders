@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace MakoIoT.Device.Services.ESP32.DeepSleepDataProviders
 {
-    public sealed class DataPublisher
+    internal sealed class DataPublisher
     {
         private const byte MaxRetryAttempts = 3;
 
@@ -14,14 +14,14 @@ namespace MakoIoT.Device.Services.ESP32.DeepSleepDataProviders
         private readonly GpioPin _wakeupGpio;
         private readonly Sleep.WakeupGpioPin _wakeupGpioPin;
         private readonly ILog _logger;
-        private readonly DeepSleepDataProviderConfig _config;
+        private readonly IConfigurationService _configService;
 
         public DataPublisher(IMessageBus messageBus, ILog logger,
             IConfigurationService configService, GpioController gpioController, DeepSleepDataProviderConfiguration configuration)
         {
             _messageBus = messageBus;
             _logger = logger;
-            _config = (DeepSleepDataProviderConfig)configService.GetConfigSection(DeepSleepDataProviderConfig.SectionName, typeof(DeepSleepDataProviderConfig));
+            _configService = configService;
             if (configuration.WakeUpGpioPin != DeepSleepDataProviderConfiguration.WakeUpDisabled)
             {
                 _wakeupGpioPin = MapPinNumberToWakeUpEnum(configuration.WakeUpGpioPin);
@@ -55,9 +55,10 @@ namespace MakoIoT.Device.Services.ESP32.DeepSleepDataProviders
             {
                 if (ShouldGoIntoDeepSleep())
                 {
-                    _logger.Information($"Stopping device and going to sleep for {_config.SleepTime}");
+                    var config = (DeepSleepDataProviderConfig)_configService.GetConfigSection(DeepSleepDataProviderConfig.SectionName, typeof(DeepSleepDataProviderConfig));
+                    _logger.Information($"Stopping device and going to sleep for {config.SleepTime}");
                     device.Stop();
-                    Sleep.EnableWakeupByTimer(_config.SleepTime);
+                    Sleep.EnableWakeupByTimer(config.SleepTime);
                     Sleep.EnableWakeupByMultiPins(_wakeupGpioPin, Sleep.WakeupMode.AnyHigh);
                     Sleep.StartDeepSleep();
                 }

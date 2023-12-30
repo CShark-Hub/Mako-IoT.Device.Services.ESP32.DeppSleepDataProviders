@@ -25,7 +25,7 @@ namespace MakoIoT.Device.Services.ESP32.DeepSleepDataProviders
             if (configuration.WakeUpGpioPin != DeepSleepDataProviderConfiguration.WakeUpDisabled)
             {
                 _wakeupGpioPin = MapPinNumberToWakeUpEnum(configuration.WakeUpGpioPin);
-                _wakeupGpio = gpioController.OpenPin(configuration.WakeUpGpioPin);
+                _wakeupGpio = gpioController.OpenPin(configuration.WakeUpGpioPin, PinMode.InputPullDown);
             }
         }
 
